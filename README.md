@@ -1,16 +1,3 @@
-i will begin this after my personal schedule:
-1. dewdrop is events platform. mvp can be done.
-2. ladybug will take ages but mvp can be done.
-3. moonlight is easy, astology plaform.
-4. lady fantasy is for tarot, lenormand, blogs using claude api and fal.ai api - finished but needs to be polished.
-5. damlacik a personal community platform. i am becoming a youtuber. i believe i have so much to say to wrong people. this will be long. database should be secured, else i will be linçed like tosuncuk from çiftlik bank for stealing (leaking) peoples data.
-6. this project will be huge. there is a lot to implement. will take weeks. maybe whole semester. 
-
-why so much project, plan, dream? i don't want to work in a job to fullfill someone's dream. i have nothing to lose in this short lifetime due to cancer. i don't have kids, probably i never will due to risks in pregnancy: growth hormones, organ failures. i dreamed to adopt a baby. but i might be dead by the time my baby is grown. i don't want to do this to an innocent baby. life is not fair to some of us. maybe in another life :=)
-whatever, here is only me doing projects.
-
----
-
 
 # ✨ EVERLONG
 
