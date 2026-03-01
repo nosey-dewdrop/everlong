@@ -1,4 +1,4 @@
-will be begined after my personal schedule:
+i will begin this after my personal schedule:
 1. dewdrop is events platform. mvp can be done.
 2. ladybug will take ages but mvp can be done.
 3. moonlight is easy, astology plaform.
