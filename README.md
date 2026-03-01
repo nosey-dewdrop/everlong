@@ -3,20 +3,19 @@
 
 ### *letters that last*
 **v1.0 · march 2026 · with love** 💞
+
 as the founding engineer of this feature: i believe the internet was supposed to connect us, but it made us lonelier instead. everlong is our tiny rebellion against that. 🌊
 ---
 
 ## 💌 why everlong exists
 
-in the old days, people sat down, picked up a pen, and poured themselves onto paper. they waited days, sometimes weeks for a reply from their beloved ones. and that waiting wasn't suffering, it was *anticipation*. love is patience. letters were not just a form of communication, it was a proof that someone somewhere was worth waiting for. relationships were real because they required patience. every letter meant someone chose to spend their time on you.
+in the old days, people sat down, picked up a pen, and poured themselves onto paper. they waited days, sometimes weeks for a reply from their beloved ones. letters were not just a form of communication, it was a proof that someone somewhere was worth waiting for. relationships were real because they required patience. every letter meant someone chose to spend their time on you.
 
-now people send "wyd" at 2am and get anxious if there's no reply in 5 minutes. love is measured in response times. human connection has become fast food — quick, convenient, forgettable. i got several dating messages from people i met a day before. i never believe that they are love. i believe in love but i lost my belief i will ever encounter it in a fast living century. that's where i imagined this platform where people who want to use it would choose to wait and be waited. respect and get respected. respect is sitting down at midnight with a cup of tea and writing a real letter because that person deserves more than a text. every letter should feel like unwrapping a gift. every word should carry weight.
+now people send "wyd" at 2am and get anxious if there's no reply in 5 minutes. love is measured in response times. human connection has become fast food - quick, convenient, forgettable. that's where i imagined this platform where people who want to use it would choose to wait and be waited. respect and get respected. every letter should feel like unwrapping a gift. every word should carry weight.
 
-that's why i'm building everlong. this is for people who choose real communication over fast living, disposable relationships.
+this is for people who choose real communication over fast living, disposable relationships. for the dreamers, the overthinkers, the ones who still believe that slow things are the most beautiful things. 
 
-everlong is a letter-writing platform for people who are tired of shallow conversations. for the dreamers, the overthinkers, the ones who still believe that slow things are the most beautiful things. you write a letter, and it actually *travels* to the other person — based on real geographic distance. istanbul to tokyo? that letter is going to take days. and those days of waiting? that's the whole point. 📜
-
-> **"every letter is a ritual. every word, everlong."**
+you write a letter, and it actually *travels* to the other person based on real geographic distance. istanbul to tokyo? that letter is going to take days. and those days of waiting? that's the whole point. 📜
 
 ---
 
@@ -47,21 +46,17 @@ most of what we call love is really just two lonely souls bumping into each othe
 *we're just two lost souls swimming in a fish bowl.* - wish you were here - pink floyd
 that's bottle mail. 💌
 
-you write a letter, seal it, and throw it into the ocean. you don't choose who finds it. the universe does (well, our algorithm does, but let's keep the magic alive). someone out there — maybe in brazil, maybe in korea, maybe in the next city — finds your bottle, reads your words, and decides to write back.
+you write a letter, seal it, and throw it into the ocean. you don't choose who finds it. the universe does (well, our algorithm does, but let's keep the magic alive). someone out there — maybe in brazil, maybe in korea, maybe in the next city - finds your bottle, reads your words, and decides to write back.
 
 the thrill of randomness. the poetry of chance. the idea that somewhere in this massive, chaotic world, your words found exactly the right person.
 
 ---
 
-## 📦 memory box — letters i've written, never meaning to send
+## 📦 memory box
 
-> 💜 *somewhere in these eyes, i'm on your side*
+*letters i've written, never meaning to send.* - nights in white satin - the moody blues
 
-not every letter is meant to be sent. some letters are written for people who will never read them. an old friend you lost touch with. someone you loved who doesn't know. a version of yourself you're trying to let go of. your younger self. your future self.
-
-memory box is a private space where you can write letters that stay with you. sealed, timestamped, untouched — like a diary, but addressed to someone specific. no one sees them. no one reads them. they're yours.
-
-maybe one day you'll unseal them and remember how you felt. maybe you'll finally send one. maybe you won't. the point is that the words exist somewhere, and writing them was enough. ✍🏻
+not every letter is meant to be sent. some letters are written for people who will never read them. an old friend you lost touch with. someone you loved who doesn't know. a version of yourself you're trying to let go of. your younger self. your future self. memory box is a private space where you can write letters that stay with you. sealed, timestamped, untouched -like a diary, but addressed to someone specific. no one sees them. no one reads them. they're yours. maybe one day you'll unseal them and remember how you felt. maybe you'll finally send one. maybe you won't. the point is that the words exist somewhere, and writing them was enough. ✍🏻
 
 sometimes the act of writing is the healing. you don't need someone to read it. you just need to say it.
 
@@ -75,8 +70,6 @@ sometimes the act of writing is the healing. you don't need someone to read it. 
 ---
 
 ## 🎵 playlist sharing — music connects souls
-
-> 🕯️ *there is a light that never goes out — the smiths*
 
 music is the language people speak when words aren't enough. when someone shares a song with you, they're not just sharing audio — they're sharing a piece of how they feel. a mood. a memory. a moment.
 
@@ -95,21 +88,11 @@ because some people fall in love through words. others fall in love through the 
 
 ## 📖 the everlong blog — love stories that never grow old
 
-> 🦢 *time cast a spell on you, but you won't forget me — silver springs, fleetwood mac*
+*now, we are one in everlasting peace.* exit music - radiohead
 
-everlong isn't just a platform. it's a world. and every world needs its mythology.
+everlong isn't just a platform. it's a world. and every world needs its mythology. the everlong blog tells the stories of lovers across history, mythology, and literature — the ones who wrote letters, who waited, who loved across impossible distances.
 
-the everlong blog tells the stories of lovers across history, mythology, and literature — the ones who wrote letters, who waited, who loved across impossible distances.
-
-orpheus descending into the underworld for eurydice. abelard and heloise writing across monastery walls. frida and diego burning and rebuilding each other endlessly. napoleon writing desperate letters to joséphine from the battlefield. kafka pouring his soul into letters to milena that he knew would change nothing.
-
-> 🎭 *exit music — radiohead, inspired by romeo and juliet*
-
-romeo and juliet — two people who chose each other over everything, knowing it would destroy them. the original story of love as rebellion. every version of their story, from shakespeare to baz luhrmann, reminds us that some connections are so intense they can't survive the world around them. but they existed. and that matters.
-
-> 🌪️ *wuthering heights — kate bush, inspired by emily brontë*
-
-heathcliff and catherine — a love so wild it outlived death itself. brontë wrote a love story that was really about obsession, longing, and the impossibility of separating two souls that grew up intertwined. the moors, the wind, the ghost at the window — it's all about the letters we write to people who are already gone.
+orpheus descending into the underworld for eurydice. abelard and heloise writing across monastery walls. kafka pouring his soul into letters to milena that he knew would change nothing. heathcliff and catherine - a love so wild it outlived death itself. brontë wrote a love story that was really about obsession, longing, and the impossibility of separating two souls that grew up intertwined. the moors, the wind, the ghost at the window - it's all about the letters we write to people who are already gone. these stories will be posted in a blog.
 
 **what the blog includes:**
 - weekly stories of famous lovers and their letters ✉️
