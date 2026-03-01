@@ -41,10 +41,9 @@ the **"currently reading"** field, the **"last song i listened to"**, the **"lif
 
  *strangers passing in the street, by chance two separate glances meet. i am you and what i see is me — echoes, pink floyd*
 
-most of what we call love is really just two lonely souls bumping into each other in the dark. two strangers whose glances meet by pure chance. and that's beautiful, actually. because the most meaningful connections in life are the ones we didn't plan. the accidental ones. the ones that made us think — *wait, how did i live without this person?*
+ *we're just two lost souls swimming in a fish bowl.* - wish you were here - pink floyd
 
-*we're just two lost souls swimming in a fish bowl.* - wish you were here - pink floyd
-that's bottle mail. 💌
+most of what we call love is really just two lonely souls bumping into each other in the dark. two strangers whose glances meet by pure chance. and that's beautiful, actually. because the most meaningful connections in life are the ones we didn't plan. the accidental ones. that's bottle mail. 💌
 
 you write a letter, seal it, and throw it into the ocean. you don't choose who finds it. the universe does (well, our algorithm does, but let's keep the magic alive). someone out there — maybe in brazil, maybe in korea, maybe in the next city - finds your bottle, reads your words, and decides to write back.
 
