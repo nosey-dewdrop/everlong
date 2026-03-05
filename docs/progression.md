@@ -16,3 +16,10 @@
 - configured .env.local with supabase url + anon key
 - fixed nested folder issue (everlong/everlong → everlong)
 
+
+- set up supabase client in lib/supabase.ts
+- wrote typescript types in types/index.ts — User, Letter, Stamp, BlogPost, Notification
+- configured design system in tailwind.config.ts
+- globals.css — @theme color palette, atmospheric noise, radial glow
+- app/layout.tsx — loaded cormorant garamond, outfit, caveat fonts
+- app/page.tsx — first screen working, dark background + lilac typography
