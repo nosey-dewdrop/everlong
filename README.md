@@ -1,10 +1,14 @@
 # forget-me-not
-
-**letters that last** — a slow letter platform for people who believe real things take time.
+a slow letter platform for people who believe real things take time.
 
 ## what is this?
 
-forget-me-not is a web platform where people write letters to each other — and those letters actually travel based on real geographic distance. istanbul to tokyo? that letter takes days. and those days of waiting are the whole point.
+forget-me-not is a web platform where people write letters to each other - and those letters actually travel based on real geographic distance. istanbul to tokyo? that letter takes days. and those days of waiting are the whole point.
+
+- real letter delivery system with distance-based travel time
+- ai compatibility matching and ice-breaker suggestions
+- bottle mail — throw a letter into the ocean for a stranger to find
+- memory box — private letters you write but never send
 
 no instant messaging. no read receipts. no "wyd" at 2am. just real letters, real patience, real connection.
 
@@ -25,11 +29,6 @@ this is for the dreamers, the overthinkers, the ones who would have written lett
 - **payments:** Stripe (planned)
 
 ## coming soon
-
-- real letter delivery system with distance-based travel time
-- ai compatibility matching and ice-breaker suggestions
-- bottle mail — throw a letter into the ocean for a stranger to find
-- memory box — private letters you write but never send
 - stamp collection and XP leveling system
 - avatar builder — habbo/stardoll style, build your own pixel character
 - seasonal themes you can buy and collect:
