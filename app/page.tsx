@@ -30,7 +30,12 @@ export default function Home() {
   return (
     <>
       <Stars />
-      <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}><ThemeToggle /></div>
+      <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 10, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <span style={{ fontSize: 11, color: 'var(--tx4)', letterSpacing: '0.05em' }}>
+          {stats.members} members · {stats.sent} letters
+        </span>
+        <ThemeToggle />
+      </div>
       <section className="hero">
         <h1 className="hero-title ar ar1">forget-me-not<span className="cursor"></span></h1>
         <p className="hero-sub ar ar2">letters that last.</p>
@@ -42,17 +47,6 @@ export default function Home() {
         <div className="ar ar4" style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
           <a href="/register" className="btn">start writing</a>
           <a href="/login" className="btn-ghost">sign in</a>
-        </div>
-
-        <div className="ar ar4" style={{ display: 'flex', gap: 48, justifyContent: 'center', marginBottom: 48 }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--lilac)' }}>{stats.members}</div>
-            <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>members</div>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--gold)' }}>{stats.sent}</div>
-            <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>letters sent</div>
-          </div>
         </div>
 
         <div className="ar ar5" style={{ display: 'flex', gap: 64, justifyContent: 'center' }}>
