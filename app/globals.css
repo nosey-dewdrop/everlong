@@ -196,7 +196,7 @@ a:hover { color: var(--lilac2); text-decoration: underline; }
   overflow-y: auto; border-right: 1px solid var(--brd);
   background: var(--bg); padding: 24px 20px 60px;
 }
-.ev-main { margin-left: 280px; flex: 1; padding: 36px 60px 80px; }
+.ev-main { margin-left: 280px; flex: 1; padding: 36px 80px 80px; max-width: calc(100vw - 280px); }
 
 /* ═══ SIDEBAR ═══ */
 .sb-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tx4); margin: 24px 0 10px; }
