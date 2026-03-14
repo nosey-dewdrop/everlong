@@ -30,6 +30,7 @@ export default function DashboardPage() {
   const [interests, setInterests] = useState<string[]>([])
   const [inboxLetters, setInboxLetters] = useState<LetterWithSender[]>([])
   const [sentLetters, setSentLetters] = useState<LetterWithRecipient[]>([])
+  const [siteStats, setSiteStats] = useState({ members: 0, totalLetters: 0 })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -112,6 +113,17 @@ export default function DashboardPage() {
       }
       setSentLetters(sent)
     }
+
+    // site stats
+    const { count: memberCount } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('onboarding_complete', true)
+    const { count: letterCount } = await supabase
+      .from('letters')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_memory_box', false)
+    setSiteStats({ members: memberCount || 0, totalLetters: letterCount || 0 })
 
     setLoading(false)
   }
@@ -196,6 +208,19 @@ export default function DashboardPage() {
               <div style={{ fontSize: 11, color: 'var(--tx3)' }}>{user.life_motto}</div>
             </div>
           )}
+
+          <hr className="divider" />
+          <div className="sb-title">community</div>
+          <div style={{ display: 'flex', gap: 20, marginBottom: 8 }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--lilac)' }}>{siteStats.members}</div>
+              <div style={{ fontSize: 9, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>members</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--gold)' }}>{siteStats.totalLetters}</div>
+              <div style={{ fontSize: 9, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>letters</div>
+            </div>
+          </div>
         </aside>
 
         <div className="ev-main">

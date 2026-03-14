@@ -1,7 +1,32 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { supabase } from '@/lib/supabase'
 
 export default function Home() {
+  const [stats, setStats] = useState({ members: 0, sent: 0, received: 0 })
+
+  useEffect(() => {
+    async function loadStats() {
+      const { count: members } = await supabase
+        .from('users')
+        .select('*', { count: 'exact', head: true })
+        .eq('onboarding_complete', true)
+      const { count: sent } = await supabase
+        .from('letters')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_memory_box', false)
+      setStats({
+        members: members || 0,
+        sent: sent || 0,
+        received: sent || 0,
+      })
+    }
+    loadStats()
+  }, [])
+
   return (
     <>
       <Stars />
@@ -14,9 +39,20 @@ export default function Home() {
           wait. real connection takes time.
         </p>
 
-        <div className="ar ar4" style={{ display: 'flex', gap: 16, marginBottom: 64 }}>
+        <div className="ar ar4" style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
           <a href="/register" className="btn">start writing</a>
           <a href="/login" className="btn-ghost">sign in</a>
+        </div>
+
+        <div className="ar ar4" style={{ display: 'flex', gap: 48, justifyContent: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--lilac)' }}>{stats.members}</div>
+            <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>members</div>
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--gold)' }}>{stats.sent}</div>
+            <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>letters sent</div>
+          </div>
         </div>
 
         <div className="ar ar5" style={{ display: 'flex', gap: 64, justifyContent: 'center' }}>

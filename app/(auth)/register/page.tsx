@@ -15,29 +15,39 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
 
   async function handleRegister() {
     setError('')
+    setSuccess('')
     if (!displayName.trim()) { setError('display name is required'); return }
     if (!email.trim()) { setError('email is required'); return }
     if (password.length < 6) { setError('min 6 characters'); return }
     if (password !== confirmPassword) { setError('passwords don\'t match'); return }
     setLoading(true)
-    const { error: authError } = await supabase.auth.signUp({
+    const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: displayName } },
+      options: {
+        data: { full_name: displayName },
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`,
+      },
     })
     setLoading(false)
     if (authError) { setError(authError.message); return }
+    // If email confirmation is required, user won't have a session yet
+    if (data.user && !data.session) {
+      setSuccess('check your email — we sent you a confirmation link.')
+      return
+    }
     router.push('/onboarding')
   }
 
   async function handleGoogleSignUp() {
     const { error: authError } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin + '/dashboard' },
+      options: { redirectTo: window.location.origin + '/auth/callback?next=/onboarding' },
     })
     if (authError) { setError(authError.message) }
   }
@@ -75,8 +85,15 @@ export default function RegisterPage() {
           </p>
         )}
 
-        <button className="btn btn-full ar ar4" onClick={handleRegister} disabled={loading}>
-          {loading ? 'creating account...' : 'continue \u2192'}
+        {success && (
+          <div className="card ar" style={{ borderLeft: '3px solid var(--gold)', marginBottom: 14 }}>
+            <p style={{ fontSize: 13, color: 'var(--txt)' }}>{success}</p>
+            <p style={{ fontSize: 11, color: 'var(--tx3)', marginTop: 6 }}>didn&apos;t get it? check spam or try again.</p>
+          </div>
+        )}
+
+        <button className="btn btn-full ar ar4" onClick={handleRegister} disabled={loading || !!success}>
+          {loading ? 'creating account...' : success ? 'check your email' : 'continue \u2192'}
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
