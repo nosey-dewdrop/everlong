@@ -25,13 +25,6 @@ export default function LoginPage() {
     router.push('/dashboard')
   }
 
-  async function handleGoogleLogin() {
-    const { error: authError } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin + '/auth/callback?next=/dashboard' },
-    })
-    if (authError) { setError(authError.message) }
-  }
 
   return (
     <>
@@ -60,17 +53,6 @@ export default function LoginPage() {
 
         <button className="btn btn-full ar ar4" onClick={handleLogin} disabled={loading}>
           {loading ? 'signing in...' : 'sign in'}
-        </button>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
-          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
-          <span style={{ fontSize: 11, color: 'var(--tx4)' }}>or</span>
-          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
-        </div>
-
-        <button className="btn btn-full ar ar5" onClick={handleGoogleLogin}
-          style={{ background: 'var(--bg2)', color: 'var(--tx)', border: '1px solid var(--brd)', fontStyle: 'normal' }}>
-          sign in with google
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

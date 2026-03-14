@@ -44,13 +44,6 @@ export default function RegisterPage() {
     router.push('/onboarding')
   }
 
-  async function handleGoogleSignUp() {
-    const { error: authError } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin + '/auth/callback?next=/onboarding' },
-    })
-    if (authError) { setError(authError.message) }
-  }
 
   return (
     <>
@@ -86,25 +79,13 @@ export default function RegisterPage() {
         )}
 
         {success && (
-          <div className="card ar" style={{ borderLeft: '3px solid var(--gold)', marginBottom: 14 }}>
-            <p style={{ fontSize: 13, color: 'var(--txt)' }}>{success}</p>
-            <p style={{ fontSize: 11, color: 'var(--tx3)', marginTop: 6 }}>didn&apos;t get it? check spam or try again.</p>
-          </div>
+          <p className="ar" style={{ color: 'var(--tx2)', fontSize: 12, marginBottom: 14 }}>
+            {'> '}{success}
+          </p>
         )}
 
         <button className="btn btn-full ar ar4" onClick={handleRegister} disabled={loading || !!success}>
           {loading ? 'creating account...' : success ? 'check your email' : 'continue \u2192'}
-        </button>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
-          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
-          <span style={{ fontSize: 11, color: 'var(--tx4)' }}>or</span>
-          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
-        </div>
-
-        <button className="btn btn-full ar ar5" onClick={handleGoogleSignUp}
-          style={{ background: 'var(--bg2)', color: 'var(--tx)', border: '1px solid var(--brd)', fontStyle: 'normal' }}>
-          sign up with google
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

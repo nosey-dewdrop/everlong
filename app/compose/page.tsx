@@ -21,9 +21,8 @@ export default function ComposePage() {
 function ComposeInner() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [toQuery, setToQuery] = useState('')
   const [toUser, setToUser] = useState<User | null>(null)
-  const [searchResults, setSearchResults] = useState<User[]>([])
+  const [penPals, setPenPals] = useState<User[]>([])
   const [body, setBody] = useState('')
   const [stamps, setStamps] = useState<Stamp[]>([])
   const [stampId, setStampId] = useState<number | null>(null)
@@ -65,35 +64,37 @@ function ComposeInner() {
       }
     }
 
+    // load pen pals (people you've exchanged letters with)
+    const { data: sentTo } = await supabase
+      .from('letters')
+      .select('recipient_id')
+      .eq('sender_id', authUser.id)
+      .eq('is_memory_box', false)
+    const { data: receivedFrom } = await supabase
+      .from('letters')
+      .select('sender_id')
+      .eq('recipient_id', authUser.id)
+
+    const palIds = new Set<string>()
+    sentTo?.forEach(l => l.recipient_id && palIds.add(l.recipient_id))
+    receivedFrom?.forEach(l => l.sender_id && palIds.add(l.sender_id))
+
+    if (palIds.size > 0) {
+      const { data: pals } = await supabase
+        .from('users')
+        .select('*')
+        .in('id', Array.from(palIds))
+      if (pals) setPenPals(pals)
+    }
+
     // check if coming from bottle or specific user
     const bottle = searchParams.get('bottle')
     const userId = searchParams.get('to')
     if (bottle === 'true') setIsBottle(true)
     if (userId) {
       const { data: recipient } = await supabase.from('users').select('*').eq('id', userId).single()
-      if (recipient) { setToUser(recipient); setToQuery(recipient.display_name || '') }
+      if (recipient) setToUser(recipient)
     }
-  }
-
-  async function searchUsers(query: string) {
-    setToQuery(query)
-    setToUser(null)
-    if (query.length < 2) { setSearchResults([]); return }
-
-    const { data } = await supabase
-      .from('users')
-      .select('*')
-      .ilike('display_name', `%${query}%`)
-      .neq('id', currentUser?.id || '')
-      .limit(5)
-
-    if (data) setSearchResults(data)
-  }
-
-  function selectUser(u: User) {
-    setToUser(u)
-    setToQuery(u.display_name || '')
-    setSearchResults([])
   }
 
   async function sendLetter() {
@@ -230,20 +231,29 @@ function ComposeInner() {
         </p>
 
         {!isBottle && (
-          <div style={{ marginBottom: 20, position: 'relative' }}>
+          <div style={{ marginBottom: 20 }}>
             <div className="form-label">to</div>
-            <input className="ev-input" value={toQuery} onChange={e => searchUsers(e.target.value)} placeholder="search for a pen pal..." />
-            {searchResults.length > 0 && (
-              <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg2)', border: '1px solid var(--brd)', borderRadius: 8, zIndex: 10, maxHeight: 200, overflow: 'auto' }}>
-                {searchResults.map(u => (
-                  <button key={u.id} onClick={() => selectUser(u)} style={{ display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', background: 'none', border: 'none', color: 'var(--txt)', cursor: 'pointer', fontSize: 13, borderBottom: '1px solid var(--brd)' }}>
-                    @{u.display_name} <span style={{ color: 'var(--tx4)', fontSize: 11 }}>— {u.country}</span>
+            {penPals.length > 0 ? (
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {penPals.map(p => (
+                  <button key={p.id} onClick={() => setToUser(p)} className="tag"
+                    style={{
+                      cursor: 'pointer', padding: '6px 12px',
+                      borderColor: toUser?.id === p.id ? 'var(--lilac)' : undefined,
+                      color: toUser?.id === p.id ? 'var(--lilac)' : undefined,
+                      background: toUser?.id === p.id ? 'var(--acf)' : undefined,
+                    }}>
+                    @{p.display_name}
                   </button>
                 ))}
               </div>
+            ) : (
+              <p style={{ fontSize: 12, color: 'var(--tx3)' }}>
+                no pen pals yet — <a href="/explore">find someone on explore</a>
+              </p>
             )}
             {toUser && (
-              <div style={{ fontSize: 11, color: 'var(--lilac)', marginTop: 4 }}>
+              <div style={{ fontSize: 11, color: 'var(--lilac)', marginTop: 8 }}>
                 writing to @{toUser.display_name} in {toUser.country}
               </div>
             )}
