@@ -2,10 +2,10 @@ import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const ARTICLES = [
-  { slug: 'orpheus-eurydice', category: 'mythology', title: 'Orpheus & Eurydice', desc: 'the original love letter — a song so beautiful it opened the gates of the underworld. what does it mean to love someone so much you\'d walk into death?', icon: '🏛', author: 'everlong' },
-  { slug: 'kafka-milena', category: 'literary love', title: 'Kafka\'s Letters to Milena', desc: 'franz kafka wrote hundreds of letters to milena jesenská. they met twice. but in those letters, he was more honest than most people are in a lifetime.', icon: '📜', author: 'everlong' },
-  { slug: 'heathcliff-catherine', category: 'historical letters', title: 'Heathcliff & Catherine', desc: '"whatever our souls are made of, his and mine are the same." brontë wrote a love that destroyed everything it touched — and we still can\'t look away.', icon: '🌪', author: 'everlong' },
-  { slug: 'letter-of-the-week', category: 'featured', title: 'Letter of the Week', desc: 'every week, we feature one anonymous letter from the everlong community. this week: a letter from tokyo to istanbul about the silence between two people.', icon: '✦', author: 'sora' },
+  { slug: 'orpheus-eurydice', category: 'mythology', title: 'Orpheus & Eurydice', desc: 'the original love letter — a song so beautiful it opened the gates of the underworld. what does it mean to love someone so much you\'d walk into death?', icon: '🏛', author: 'damla' },
+  { slug: 'kafka-milena', category: 'literary love', title: 'Kafka\'s Letters to Milena', desc: 'franz kafka wrote hundreds of letters to milena jesenská. they met twice. but in those letters, he was more honest than most people are in a lifetime.', icon: '📜', author: 'damla' },
+  { slug: 'heathcliff-catherine', category: 'historical letters', title: 'Heathcliff & Catherine', desc: '"whatever our souls are made of, his and mine are the same." brontë wrote a love that destroyed everything it touched — and we still can\'t look away.', icon: '🌪', author: 'damla' },
+  { slug: 'letter-of-the-week', category: 'featured', title: 'Letter of the Week', desc: 'every week, we feature one anonymous letter from the forget-me-not community. this week: a letter from tokyo to istanbul about the silence between two people.', icon: '✦', author: 'sora' },
 ]
 
 export default function BlogPage() {
@@ -13,7 +13,7 @@ export default function BlogPage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item) => (
@@ -25,7 +25,7 @@ export default function BlogPage() {
 
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '80px 24px 60px', position: 'relative', zIndex: 1 }}>
         <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--lilac)', marginBottom: 4 }}>
-          the everlong blog<span className="cursor"></span>
+          the forget-me-not blog<span className="cursor"></span>
         </h2>
         <p className="prompt" style={{ fontSize: 13, marginBottom: 32 }}>love stories that never grow old.</p>
 

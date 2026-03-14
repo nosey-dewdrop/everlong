@@ -5,7 +5,7 @@ const STORIES: Record<string, { category: string; title: string; author: string;
   'orpheus-eurydice': {
     category: 'mythology',
     title: 'Orpheus & Eurydice',
-    author: 'everlong',
+    author: 'damla',
     date: 'mar 1, 2026',
     body: `there is no older love letter than a song.
 
@@ -34,7 +34,7 @@ don't look back. trust the silence. the letter will arrive.`,
   'kafka-milena': {
     category: 'literary love',
     title: "Kafka's Letters to Milena",
-    author: 'everlong',
+    author: 'damla',
     date: 'feb 20, 2026',
     body: `franz kafka and milena jesenská met twice in their lives. twice.
 
@@ -52,12 +52,12 @@ their letters are not a love story in the traditional sense. they never really "
 
 but that's what makes their letters extraordinary — they prove that the truest version of yourself sometimes only exists in the space between sending and receiving.
 
-every letter you write on everlong carries a piece of kafka's courage. you're saying: i am afraid, but i will try to be honest with a stranger. and that is the bravest thing a person can do.`,
+every letter you write on forget-me-not carries a piece of kafka's courage. you're saying: i am afraid, but i will try to be honest with a stranger. and that is the bravest thing a person can do.`,
   },
   'heathcliff-catherine': {
     category: 'historical letters',
     title: 'Heathcliff & Catherine',
-    author: 'everlong',
+    author: 'damla',
     date: 'feb 14, 2026',
     body: `"whatever our souls are made of, his and mine are the same."
 
@@ -73,7 +73,7 @@ brontë doesn't ask us to admire heathcliff and catherine. she asks us to recogn
 
 "he's more myself than i am," catherine says. and that's the terrifying thing about real connection — it doesn't complete you. it reveals you. and sometimes what it reveals is unbearable.
 
-the letters on everlong won't destroy you. but the best ones might change you. and maybe that's enough.`,
+the letters on forget-me-not won't destroy you. but the best ones might change you. and maybe that's enough.`,
   },
   'letter-of-the-week': {
     category: 'featured',
@@ -88,7 +88,7 @@ i've been thinking about ma a lot since we started writing.
 
 in tokyo, everything moves fast. the trains, the people, the neon. but inside the trains, everyone is quiet. everyone is in their own ma — their own space between the noise.
 
-i found your profile on everlong three weeks ago. you said you collect stories and sunsets. i collect silences. i thought: here is someone who understands that the spaces between are where the real things live.
+i found your profile on forget-me-not three weeks ago. you said you collect stories and sunsets. i collect silences. i thought: here is someone who understands that the spaces between are where the real things live.
 
 this letter took 85 hours to reach you. in that time, it crossed the sea of japan, the silk road, the bosphorus. it traveled the same route that spices and stories have traveled for thousands of years.
 
@@ -125,7 +125,7 @@ export default async function BlogStoryPage({ params }: { params: Promise<{ slug
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-right">
           <a href="/blog" className="nav-link">blog</a>
           <ThemeToggle />
