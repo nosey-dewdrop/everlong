@@ -1,36 +1,57 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
+import { Stars } from '@/components/Stars'
+
 export default function LoginPage() {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  async function handleLogin() {
+    setLoading(true)
+    setError('')
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) { setError(error.message); setLoading(false) }
+    else { router.push('/dashboard') }
+  }
+
   return (
-    <main style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-      <div style={{ width: '100%', maxWidth: '400px', padding: '40px' }}>
-        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '2.5rem', color: '#B8A4D6', marginBottom: '8px' }}>
-          welcome back
-        </h1>
-        <p style={{ fontFamily: 'Outfit, sans-serif', color: '#7E7290', fontSize: '12px', marginBottom: '32px' }}>
-          your letters are waiting
-        </p>
+    <>
+      <Stars />
+      <div style={{ maxWidth: 380, margin: '0 auto', padding: '16vh 24px', position: 'relative', zIndex: 1 }}>
+        <h2 className="ar ar1" style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--lilac)', marginBottom: 4 }}>
+          welcome back<span className="cursor"></span>
+        </h2>
+        <p className="prompt ar ar2" style={{ fontSize: 12, marginBottom: 28 }}>your letters have been waiting.</p>
 
-        <div style={{ marginBottom: '16px' }}>
-          <label style={{ display: 'block', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7B68A0', marginBottom: '5px' }}>
-            email
-          </label>
-          <input type="email" placeholder="your@email.com" style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #2A2538', background: '#110F16', fontSize: '13px', color: '#EDE8F2', outline: 'none', fontFamily: 'Outfit, sans-serif' }} />
+        <div className="ar ar3" style={{ marginBottom: 14 }}>
+          <div className="form-label">email</div>
+          <input className="ev-input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@world.com" />
+        </div>
+        <div className="ar ar3" style={{ marginBottom: 20 }}>
+          <div className="form-label">password</div>
+          <input className="ev-input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••" />
         </div>
 
-        <div style={{ marginBottom: '24px' }}>
-          <label style={{ display: 'block', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7B68A0', marginBottom: '5px' }}>
-            password
-          </label>
-          <input type="password" placeholder="••••••••" style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #2A2538', background: '#110F16', fontSize: '13px', color: '#EDE8F2', outline: 'none', fontFamily: 'Outfit, sans-serif' }} />
-        </div>
+        {error && (
+          <p className="ar" style={{ color: 'var(--pink)', fontSize: 12, marginBottom: 14 }}>
+            {'> '}{error}
+          </p>
+        )}
 
-        <button style={{ width: '100%', padding: '11px', borderRadius: '10px', background: '#B8A4D6', color: '#0C0A10', fontFamily: 'Outfit, sans-serif', fontWeight: 500, fontSize: '13px', border: 'none', cursor: 'pointer' }}>
-          sign in
+        <button className="btn btn-full ar ar4" onClick={handleLogin} disabled={loading} style={{ opacity: loading ? 0.6 : 1 }}>
+          {loading ? 'connecting...' : 'sign in'}
         </button>
 
-        <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#514768' }}>
-          no account? <a href="/register" style={{ color: '#B8A4D6' }}>create one</a>
+        <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>
+          no account? <a href="/register">create one</a>
         </p>
       </div>
-    </main>
+    </>
   )
 }
