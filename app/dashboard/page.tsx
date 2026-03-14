@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Stars } from '@/components/Stars'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 const U = {
   name: 'luna', avatar: '🦢', city: 'istanbul',
@@ -47,6 +48,7 @@ export default function DashboardPage() {
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item, i) => (
             <button key={item} className={`nav-link ${i === 0 ? 'active' : ''}`}>{item}</button>
           ))}
+          <ThemeToggle />
         </div>
       </nav>
 

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Stars } from '@/components/Stars'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -23,6 +24,7 @@ export default function LoginPage() {
   return (
     <>
       <Stars />
+      <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}><ThemeToggle /></div>
       <div style={{ maxWidth: 380, margin: '0 auto', padding: '16vh 24px', position: 'relative', zIndex: 1 }}>
         <h2 className="ar ar1" style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--lilac)', marginBottom: 4 }}>
           welcome back<span className="cursor"></span>
