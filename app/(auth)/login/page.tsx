@@ -1,20 +1,36 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { supabase } from '@/lib/supabase'
 
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  function handleLogin() {
+  async function handleLogin() {
     setError('')
     if (!email.trim() || !password.trim()) { setError('fill in all fields'); return }
+    setLoading(true)
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    setLoading(false)
+    if (authError) { setError(authError.message); return }
     router.push('/dashboard')
+  }
+
+  async function handleGoogleLogin() {
+    const { error: authError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + '/dashboard' },
+    })
+    if (authError) { setError(authError.message) }
   }
 
   return (
@@ -42,8 +58,19 @@ export default function LoginPage() {
           </p>
         )}
 
-        <button className="btn btn-full ar ar4" onClick={handleLogin}>
-          sign in
+        <button className="btn btn-full ar ar4" onClick={handleLogin} disabled={loading}>
+          {loading ? 'signing in...' : 'sign in'}
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
+          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
+          <span style={{ fontSize: 11, color: 'var(--tx4)' }}>or</span>
+          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
+        </div>
+
+        <button className="btn btn-full ar ar5" onClick={handleGoogleLogin}
+          style={{ background: 'var(--bg2)', color: 'var(--tx)', border: '1px solid var(--brd)', fontStyle: 'normal' }}>
+          sign in with google
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

@@ -1,19 +1,63 @@
 'use client'
 
-import { useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
-
-const FILTERS = ['all', 'to myself', 'unsent', 'time capsules']
-
-const MEMORIES = [
-  { id: 1, to: 'my 16-year-old self', date: 'mar 2, 2026', preview: 'you don\'t know it yet, but the things that feel like endings are actually beginnings...', tags: ['self', 'reflection'], capsule: null },
-  { id: 2, to: 'someone i never told', date: 'feb 14, 2026', preview: 'i wrote this on the train home. you were sitting across from me and i wanted to say...', tags: ['unsent', 'love'], capsule: null },
-  { id: 3, to: 'future me', date: 'jan 28, 2026', preview: 'if you\'re reading this, i hope you still watch the stars and talk to the moon...', tags: ['self', 'daily'], capsule: 'dec 31, 2026' },
-]
+import { supabase } from '@/lib/supabase'
+import { formatDate } from '@/lib/utils'
+import type { Letter } from '@/types'
 
 export default function MemoryPage() {
+  const router = useRouter()
   const [filter, setFilter] = useState('all')
+  const [memories, setMemories] = useState<Letter[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => { loadMemories() }, [])
+
+  async function loadMemories() {
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    if (!authUser) { router.push('/login'); return }
+
+    const { data } = await supabase
+      .from('letters')
+      .select('*')
+      .eq('sender_id', authUser.id)
+      .eq('is_memory_box', true)
+      .order('sent_at', { ascending: false })
+
+    if (data) setMemories(data)
+    setLoading(false)
+  }
+
+  async function unsealAndSend(letter: Letter) {
+    // convert to a real letter - redirect to compose with content
+    router.push(`/compose?memory=${letter.id}`)
+  }
+
+  const filtered = memories.filter(m => {
+    if (filter === 'all') return true
+    if (filter === 'to myself') return !m.memory_box_recipient || m.memory_box_recipient.toLowerCase().includes('self') || m.memory_box_recipient.toLowerCase().includes('me')
+    if (filter === 'unsent') return !m.time_capsule_date
+    if (filter === 'time capsules') return !!m.time_capsule_date
+    return true
+  })
+
+  const FILTERS = ['all', 'to myself', 'unsent', 'time capsules']
+
+  if (loading) {
+    return (
+      <>
+        <Stars />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--tx3)', fontSize: 14 }}>
+          opening memory box...
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
@@ -46,28 +90,43 @@ export default function MemoryPage() {
 
         <a href="/compose" className="btn" style={{ marginBottom: 32, display: 'inline-block' }}>write to memory box</a>
 
-        {MEMORIES.map(m => (
-          <div key={m.id} className="letter-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 22 }}>✦</span>
-                <div>
-                  <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>to:</div>
-                  <div style={{ fontSize: 14, color: 'var(--txt)' }}>{m.to}</div>
-                </div>
-              </div>
-              <span style={{ fontSize: 11, color: 'var(--tx4)' }}>{m.date}</span>
-            </div>
-            <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 10 }}>{m.preview}</p>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
-              {m.tags.map(t => <span key={t} className="tag">{t}</span>)}
-              {m.capsule && <span style={{ fontSize: 11, color: 'var(--gold)', marginLeft: 8 }}>opens {m.capsule}</span>}
-            </div>
-            {!m.capsule && (
-              <button className="btn btn-sm" style={{ marginTop: 10 }}>unseal & send</button>
-            )}
+        {filtered.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--tx4)', fontSize: 13 }}>
+            no memories yet — write a letter to yourself or someone you can&apos;t send it to.
           </div>
-        ))}
+        )}
+
+        {filtered.map(m => {
+          const isLocked = m.time_capsule_date && new Date(m.time_capsule_date) > new Date()
+
+          return (
+            <div key={m.id} className="letter-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 22 }}>✦</span>
+                  <div>
+                    <div style={{ fontSize: 11, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>to:</div>
+                    <div style={{ fontSize: 14, color: 'var(--txt)' }}>{m.memory_box_recipient || 'myself'}</div>
+                  </div>
+                </div>
+                <span style={{ fontSize: 11, color: 'var(--tx4)' }}>{m.sent_at ? formatDate(m.sent_at) : ''}</span>
+              </div>
+              <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 10 }}>
+                {m.content.substring(0, 200)}{m.content.length > 200 ? '...' : ''}
+              </p>
+              {isLocked && (
+                <span style={{ fontSize: 11, color: 'var(--gold)' }}>
+                  opens {formatDate(m.time_capsule_date!)}
+                </span>
+              )}
+              {!isLocked && (
+                <button className="btn btn-sm" style={{ marginTop: 10 }} onClick={() => unsealAndSend(m)}>
+                  unseal & send
+                </button>
+              )}
+            </div>
+          )
+        })}
       </div>
     </>
   )

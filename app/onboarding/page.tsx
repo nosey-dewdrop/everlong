@@ -1,13 +1,17 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { supabase } from '@/lib/supabase'
+import { COUNTRY_COORDS } from '@/lib/countries'
 
-const AVATARS = ['🦢', '🌙', '✦', '🐚', '🦋', '🌿', '☁', '🪻', '🔮', '🕊']
+const AVATARS_LIST = ['🦢', '🌙', '✦', '🐚', '🦋', '🌿', '☁', '🪻', '🔮', '🕊']
 const MBTI = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP']
-const INTERESTS = ['philosophy','literature','music','astronomy','psychology','slow living','art','cinema','poetry','mythology','technology','history','writing','photography','languages','cooking']
+const INTERESTS_LIST = ['philosophy','literature','music','astronomy','psychology','slow living','art','cinema','poetry','mythology','technology','history','writing','photography','languages','cooking']
 const COUNTRIES = ['argentina','australia','austria','belgium','brazil','canada','chile','china','colombia','czech republic','denmark','egypt','finland','france','germany','greece','hungary','iceland','india','indonesia','ireland','israel','italy','japan','kenya','korea','mexico','morocco','netherlands','new zealand','nigeria','norway','pakistan','peru','philippines','poland','portugal','romania','russia','saudi arabia','singapore','south africa','spain','sweden','switzerland','thailand','turkey','ukraine','united kingdom','united states','vietnam']
 const LANGUAGES = ['english','spanish','french','german','italian','portuguese','turkish','japanese','korean','chinese','arabic','hindi','russian','dutch','swedish','norwegian','danish','finnish','polish','greek','czech','romanian','hungarian','indonesian','thai','vietnamese']
 const ZODIACS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
@@ -26,6 +30,8 @@ export default function OnboardingPage() {
   const [reading, setReading] = useState('')
   const [lastSong, setLastSong] = useState('')
   const [motto, setMotto] = useState('')
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   function toggleInterest(i: string) {
     setInterests(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i])
@@ -35,7 +41,77 @@ export default function OnboardingPage() {
     setLanguages(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l])
   }
 
-  function finish() {
+  async function finish() {
+    setError('')
+    setSaving(true)
+
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    if (userError || !user) {
+      setError('could not get user — please sign in again.')
+      setSaving(false)
+      return
+    }
+
+    // find avatar id from avatars table
+    const { data: avatarRow } = await supabase
+      .from('avatars')
+      .select('id')
+      .eq('emoji', avatar)
+      .single()
+
+    const coords = COUNTRY_COORDS[country] || null
+
+    // save user profile
+    const { error: profileError } = await supabase.from('users').upsert({
+      id: user.id,
+      display_name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'anon',
+      avatar_id: avatarRow?.id || 1,
+      country,
+      languages,
+      age: age ? parseInt(age) : null,
+      zodiac: zodiac || null,
+      bio: bio || null,
+      mbti: mbti || null,
+      current_book: reading || null,
+      last_song: lastSong || null,
+      life_motto: motto || null,
+      latitude: coords?.lat || null,
+      longitude: coords?.lng || null,
+      onboarding_complete: true,
+    })
+
+    if (profileError) {
+      setError(profileError.message)
+      setSaving(false)
+      return
+    }
+
+    // save interests to user_interests junction table
+    if (interests.length > 0) {
+      const { data: interestRows } = await supabase
+        .from('interests')
+        .select('id, name')
+        .in('name', interests)
+
+      if (interestRows && interestRows.length > 0) {
+        const rows = interestRows.map(i => ({ user_id: user.id, interest_id: i.id }))
+        await supabase.from('user_interests').upsert(rows)
+      }
+    }
+
+    // give default stamps
+    const { data: defaultStamps } = await supabase
+      .from('stamps')
+      .select('id')
+      .eq('xp_required', 0)
+      .eq('is_premium', false)
+
+    if (defaultStamps && defaultStamps.length > 0) {
+      const stampRows = defaultStamps.map(s => ({ user_id: user.id, stamp_id: s.id }))
+      await supabase.from('user_stamps').upsert(stampRows)
+    }
+
+    setSaving(false)
     router.push('/dashboard')
   }
 
@@ -61,7 +137,7 @@ export default function OnboardingPage() {
             <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--lilac)', marginBottom: 4 }}>choose your avatar</h2>
             <p className="prompt" style={{ fontSize: 13, marginBottom: 24 }}>no real photos — mystery is part of the magic.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 28 }}>
-              {AVATARS.map(a => (
+              {AVATARS_LIST.map(a => (
                 <button key={a} className="avatar" onClick={() => setAvatar(a)}
                   style={{
                     width: 56, height: 56, fontSize: 24, cursor: 'pointer', margin: '0 auto',
@@ -157,7 +233,7 @@ export default function OnboardingPage() {
             <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--lilac)', marginBottom: 4 }}>what draws you in?</h2>
             <p className="prompt" style={{ fontSize: 13, marginBottom: 24 }}>pick at least 3 — we&apos;ll help you find kindred spirits.</p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 28 }}>
-              {INTERESTS.map(i => (
+              {INTERESTS_LIST.map(i => (
                 <button key={i} className="tag" onClick={() => toggleInterest(i)}
                   style={{
                     cursor: 'pointer',
@@ -193,7 +269,14 @@ export default function OnboardingPage() {
               <div className="form-label">life motto</div>
               <input className="ev-input" value={motto} onChange={e => setMotto(e.target.value)} placeholder="the words you live by..." />
             </div>
-            <button className="btn btn-full" onClick={finish}>enter forget-me-not ✦</button>
+            {error && (
+              <p className="ar" style={{ color: 'var(--pink)', fontSize: 12, marginBottom: 14 }}>
+                {'> '}{error}
+              </p>
+            )}
+            <button className="btn btn-full" onClick={finish} disabled={saving}>
+              {saving ? 'saving...' : 'enter forget-me-not'}
+            </button>
           </div>
         )}
       </div>

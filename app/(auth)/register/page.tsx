@@ -1,9 +1,12 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { supabase } from '@/lib/supabase'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -12,14 +15,31 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  function handleRegister() {
+  async function handleRegister() {
     setError('')
     if (!displayName.trim()) { setError('display name is required'); return }
     if (!email.trim()) { setError('email is required'); return }
     if (password.length < 6) { setError('min 6 characters'); return }
     if (password !== confirmPassword) { setError('passwords don\'t match'); return }
+    setLoading(true)
+    const { error: authError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: displayName } },
+    })
+    setLoading(false)
+    if (authError) { setError(authError.message); return }
     router.push('/onboarding')
+  }
+
+  async function handleGoogleSignUp() {
+    const { error: authError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + '/dashboard' },
+    })
+    if (authError) { setError(authError.message) }
   }
 
   return (
@@ -55,8 +75,19 @@ export default function RegisterPage() {
           </p>
         )}
 
-        <button className="btn btn-full ar ar4" onClick={handleRegister}>
-          continue &rarr;
+        <button className="btn btn-full ar ar4" onClick={handleRegister} disabled={loading}>
+          {loading ? 'creating account...' : 'continue \u2192'}
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
+          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
+          <span style={{ fontSize: 11, color: 'var(--tx4)' }}>or</span>
+          <div style={{ flex: 1, height: 1, background: 'var(--brd)' }} />
+        </div>
+
+        <button className="btn btn-full ar ar5" onClick={handleGoogleSignUp}
+          style={{ background: 'var(--bg2)', color: 'var(--tx)', border: '1px solid var(--brd)', fontStyle: 'normal' }}>
+          sign up with google
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

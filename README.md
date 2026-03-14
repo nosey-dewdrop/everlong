@@ -40,6 +40,16 @@ this is for the dreamers, the overthinkers, the ones who would have written lett
 - stripe payments for premium features
 - mobile app (React Native)
 
+## roadmap
+
+1. **auth + database** — google oauth, supabase tablolari, gercek veri akisi
+2. **avatar builder** — habbo/stardoll tarzi pixel karakter olusturucu, onboarding'e entegre
+3. **mektup sistemi** — gercek gonderme/alma, mesafe bazli teslimat suresi
+4. **stripe + temalar** — premium uyelik, seasonal tema satisi
+5. **ai ozellikleri** — eslesme, ice-breaker, ceviri, mood palette
+6. **deploy** — vercel + custom domain
+7. **mobile** — react native / expo
+
 ## full specification
 
 see [important-markdowns/specification.md](important-markdowns/specification.md) for the complete product spec, database schema, and roadmap.
