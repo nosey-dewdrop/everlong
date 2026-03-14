@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
@@ -11,14 +10,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
 
-  async function handleLogin() {
-    setLoading(true)
+  function handleLogin() {
     setError('')
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) { setError(error.message); setLoading(false) }
-    else { router.push('/dashboard') }
+    if (!email.trim() || !password.trim()) { setError('fill in all fields'); return }
+    router.push('/dashboard')
   }
 
   return (
@@ -46,8 +42,8 @@ export default function LoginPage() {
           </p>
         )}
 
-        <button className="btn btn-full ar ar4" onClick={handleLogin} disabled={loading} style={{ opacity: loading ? 0.6 : 1 }}>
-          {loading ? 'connecting...' : 'sign in'}
+        <button className="btn btn-full ar ar4" onClick={handleLogin}>
+          sign in
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

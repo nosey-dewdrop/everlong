@@ -70,7 +70,7 @@ export default function ExplorePage() {
                 </div>
                 <span style={{ marginLeft: 'auto', fontSize: 13, color: 'var(--pink)', fontWeight: 700 }}>{p.compat}%</span>
               </div>
-              <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 12, fontStyle: 'italic' }}>{p.bio}</p>
+              <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 12 }}>{p.bio}</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
                 {p.interests.map(i => <span key={i} className="tag">{i}</span>)}
               </div>

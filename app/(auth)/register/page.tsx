@@ -2,27 +2,24 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
 import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [displayName, setDisplayName] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
 
-  async function handleRegister() {
+  function handleRegister() {
     setError('')
-    if (password !== confirmPassword) { setError('passwords don\'t match'); return }
+    if (!displayName.trim()) { setError('display name is required'); return }
+    if (!email.trim()) { setError('email is required'); return }
     if (password.length < 6) { setError('min 6 characters'); return }
-    setLoading(true)
-    const { error } = await supabase.auth.signUp({ email, password, options: { data: { display_name: displayName } } })
-    if (error) { setError(error.message); setLoading(false) }
-    else { router.push('/dashboard') }
+    if (password !== confirmPassword) { setError('passwords don\'t match'); return }
+    router.push('/onboarding')
   }
 
   return (
@@ -58,8 +55,8 @@ export default function RegisterPage() {
           </p>
         )}
 
-        <button className="btn btn-full ar ar4" onClick={handleRegister} disabled={loading} style={{ opacity: loading ? 0.6 : 1 }}>
-          {loading ? 'creating...' : 'continue →'}
+        <button className="btn btn-full ar ar4" onClick={handleRegister}>
+          continue &rarr;
         </button>
 
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--tx4)' }}>

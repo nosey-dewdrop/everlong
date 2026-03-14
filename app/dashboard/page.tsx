@@ -46,7 +46,7 @@ export default function DashboardPage() {
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item, i) => (
-            <button key={item} className={`nav-link ${i === 0 ? 'active' : ''}`}>{item}</button>
+            <a key={item} href={item === 'inbox' ? '/dashboard' : `/${item}`} className={`nav-link ${i === 0 ? 'active' : ''}`}>{item}</a>
           ))}
           <ThemeToggle />
         </div>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
           ))}
 
           <div style={{ textAlign: 'center', marginTop: 24 }}>
-            <button className="btn">compose a letter</button>
+            <a href="/compose" className="btn">compose a letter</a>
           </div>
         </div>
       </div>
