@@ -26,7 +26,7 @@ export default function ExplorePage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item) => (

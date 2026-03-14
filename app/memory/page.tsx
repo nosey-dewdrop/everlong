@@ -19,7 +19,7 @@ export default function MemoryPage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item) => (
@@ -58,7 +58,7 @@ export default function MemoryPage() {
               </div>
               <span style={{ fontSize: 11, color: 'var(--tx4)' }}>{m.date}</span>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--tx2)', fontStyle: 'italic', lineHeight: 1.7, marginBottom: 10 }}>{m.preview}</p>
+            <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 10 }}>{m.preview}</p>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
               {m.tags.map(t => <span key={t} className="tag">{t}</span>)}
               {m.capsule && <span style={{ fontSize: 11, color: 'var(--gold)', marginLeft: 8 }}>opens {m.capsule}</span>}

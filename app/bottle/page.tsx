@@ -13,7 +13,7 @@ export default function BottlePage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item) => (
@@ -55,7 +55,7 @@ export default function BottlePage() {
               </span>
               <span style={{ fontSize: 11, color: 'var(--tx4)' }}>{b.time}</span>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--tx2)', fontStyle: 'italic', lineHeight: 1.7, marginBottom: 6 }}>{b.preview}</p>
+            <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.7, marginBottom: 6 }}>{b.preview}</p>
             <div style={{ fontSize: 11, color: 'var(--tx4)' }}>{b.note}</div>
             {b.status === 'found' && (
               <button className="btn btn-sm" style={{ marginTop: 10 }}>+ add pen pal</button>

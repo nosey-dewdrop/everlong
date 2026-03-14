@@ -16,7 +16,7 @@ export default function ComposePage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-right">
           <a href="/dashboard" className="nav-link">inbox</a>
           <ThemeToggle />

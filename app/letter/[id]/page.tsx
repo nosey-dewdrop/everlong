@@ -33,7 +33,7 @@ export default function LetterViewPage() {
     <>
       <Stars />
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-right">
           <a href="/dashboard" className="nav-link">inbox</a>
           <ThemeToggle />
@@ -60,7 +60,7 @@ export default function LetterViewPage() {
 
           <div style={{
             fontSize: 14, color: 'var(--tx2)', lineHeight: 2,
-            fontStyle: 'italic', whiteSpace: 'pre-line', marginBottom: 24,
+            whiteSpace: 'pre-line', marginBottom: 24,
           }}>
             {LETTER.body}
           </div>

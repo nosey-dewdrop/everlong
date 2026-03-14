@@ -2,10 +2,10 @@ import { Stars } from '@/components/Stars'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const ARTICLES = [
-  { category: 'mythology', title: 'Orpheus & Eurydice', desc: 'the original love letter — a song so beautiful it opened the gates of the underworld. what does it mean to love someone so much you\'d walk into death?', icon: '🏛' },
-  { category: 'literary love', title: 'Kafka\'s Letters to Milena', desc: 'franz kafka wrote hundreds of letters to milena jesenská. they met twice. but in those letters, he was more honest than most people are in a lifetime.', icon: '📜' },
-  { category: 'historical letters', title: 'Heathcliff & Catherine', desc: '"whatever our souls are made of, his and mine are the same." brontë wrote a love that destroyed everything it touched — and we still can\'t look away.', icon: '🌪' },
-  { category: 'featured', title: 'Letter of the Week', desc: 'every week, we feature one anonymous letter from the everlong community. this week: a letter from tokyo to istanbul about the silence between two people.', icon: '✦' },
+  { slug: 'orpheus-eurydice', category: 'mythology', title: 'Orpheus & Eurydice', desc: 'the original love letter — a song so beautiful it opened the gates of the underworld. what does it mean to love someone so much you\'d walk into death?', icon: '🏛', author: 'everlong' },
+  { slug: 'kafka-milena', category: 'literary love', title: 'Kafka\'s Letters to Milena', desc: 'franz kafka wrote hundreds of letters to milena jesenská. they met twice. but in those letters, he was more honest than most people are in a lifetime.', icon: '📜', author: 'everlong' },
+  { slug: 'heathcliff-catherine', category: 'historical letters', title: 'Heathcliff & Catherine', desc: '"whatever our souls are made of, his and mine are the same." brontë wrote a love that destroyed everything it touched — and we still can\'t look away.', icon: '🌪', author: 'everlong' },
+  { slug: 'letter-of-the-week', category: 'featured', title: 'Letter of the Week', desc: 'every week, we feature one anonymous letter from the everlong community. this week: a letter from tokyo to istanbul about the silence between two people.', icon: '✦', author: 'sora' },
 ]
 
 export default function BlogPage() {
@@ -31,17 +31,18 @@ export default function BlogPage() {
 
         {ARTICLES.map((a, i) => (
           <div key={i}>
-            <article style={{ padding: '24px 0', cursor: 'pointer' }}>
+            <a href={`/blog/${a.slug}`} style={{ textDecoration: 'none', display: 'block', padding: '24px 0' }}>
               <div style={{ fontSize: 10, color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>{a.category}</div>
               <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                 <span style={{ fontSize: 28, flexShrink: 0 }}>{a.icon}</span>
                 <div>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--lilac)', fontStyle: 'italic', marginBottom: 6 }}>{a.title}</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--lilac)', marginBottom: 6 }}>{a.title}</h3>
                   <p style={{ fontSize: 13, color: 'var(--tx2)', lineHeight: 1.8 }}>{a.desc}</p>
-                  <span style={{ fontSize: 12, color: 'var(--lilac)', marginTop: 10, display: 'inline-block' }}>read story &rarr;</span>
+                  <div style={{ fontSize: 11, color: 'var(--tx4)', marginTop: 8 }}>published by @{a.author}</div>
+                  <span style={{ fontSize: 12, color: 'var(--lilac)', marginTop: 6, display: 'inline-block' }}>read story &rarr;</span>
                 </div>
               </div>
-            </article>
+            </a>
             {i < ARTICLES.length - 1 && <hr className="divider" />}
           </div>
         ))}

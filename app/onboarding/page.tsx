@@ -3,17 +3,21 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Stars } from '@/components/Stars'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 const AVATARS = ['🦢', '🌙', '✦', '🐚', '🦋', '🌿', '☁', '🪻', '🔮', '🕊']
 const MBTI = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP']
 const INTERESTS = ['philosophy','literature','music','astronomy','psychology','slow living','art','cinema','poetry','mythology','technology','history','writing','photography','languages','cooking']
+const COUNTRIES = ['argentina','australia','austria','belgium','brazil','canada','chile','china','colombia','czech republic','denmark','egypt','finland','france','germany','greece','hungary','iceland','india','indonesia','ireland','israel','italy','japan','kenya','korea','mexico','morocco','netherlands','new zealand','nigeria','norway','pakistan','peru','philippines','poland','portugal','romania','russia','saudi arabia','singapore','south africa','spain','sweden','switzerland','thailand','turkey','ukraine','united kingdom','united states','vietnam']
+const LANGUAGES = ['english','spanish','french','german','italian','portuguese','turkish','japanese','korean','chinese','arabic','hindi','russian','dutch','swedish','norwegian','danish','finnish','polish','greek','czech','romanian','hungarian','indonesian','thai','vietnamese']
+const ZODIACS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
 
 export default function OnboardingPage() {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [avatar, setAvatar] = useState('🦢')
   const [country, setCountry] = useState('')
-  const [languages, setLanguages] = useState('')
+  const [languages, setLanguages] = useState<string[]>([])
   const [age, setAge] = useState('')
   const [zodiac, setZodiac] = useState('')
   const [bio, setBio] = useState('')
@@ -27,6 +31,10 @@ export default function OnboardingPage() {
     setInterests(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i])
   }
 
+  function toggleLanguage(l: string) {
+    setLanguages(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l])
+  }
+
   function finish() {
     router.push('/dashboard')
   }
@@ -34,6 +42,7 @@ export default function OnboardingPage() {
   return (
     <>
       <Stars />
+      <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}><ThemeToggle /></div>
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '8vh 24px', position: 'relative', zIndex: 1 }}>
         {/* progress */}
         <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginBottom: 32 }}>
@@ -74,20 +83,38 @@ export default function OnboardingPage() {
             <p className="prompt" style={{ fontSize: 13, marginBottom: 24 }}>leave breadcrumbs of your soul.</p>
             <div style={{ marginBottom: 14 }}>
               <div className="form-label">country</div>
-              <input className="ev-input" value={country} onChange={e => setCountry(e.target.value)} placeholder="where in the world are you?" />
+              <select className="ev-input" value={country} onChange={e => setCountry(e.target.value)} style={{ cursor: 'pointer' }}>
+                <option value="">select your country</option>
+                {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
             </div>
             <div style={{ marginBottom: 14 }}>
-              <div className="form-label">languages</div>
-              <input className="ev-input" value={languages} onChange={e => setLanguages(e.target.value)} placeholder="english, türkçe..." />
+              <div className="form-label">languages (pick all you speak)</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {LANGUAGES.map(l => (
+                  <button key={l} className="tag" onClick={() => toggleLanguage(l)}
+                    style={{
+                      cursor: 'pointer',
+                      borderColor: languages.includes(l) ? 'var(--lilac)' : undefined,
+                      color: languages.includes(l) ? 'var(--lilac)' : undefined,
+                      background: languages.includes(l) ? 'var(--acf)' : undefined,
+                    }}>
+                    {l}
+                  </button>
+                ))}
+              </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
               <div>
                 <div className="form-label">age</div>
-                <input className="ev-input" value={age} onChange={e => setAge(e.target.value)} placeholder="23" />
+                <input className="ev-input" type="number" value={age} onChange={e => setAge(e.target.value)} placeholder="23" min="13" max="99" />
               </div>
               <div>
                 <div className="form-label">zodiac</div>
-                <input className="ev-input" value={zodiac} onChange={e => setZodiac(e.target.value)} placeholder="pisces" />
+                <select className="ev-input" value={zodiac} onChange={e => setZodiac(e.target.value)} style={{ cursor: 'pointer' }}>
+                  <option value="">select</option>
+                  {ZODIACS.map(z => <option key={z} value={z}>{z}</option>)}
+                </select>
               </div>
             </div>
             <div style={{ marginBottom: 24 }}>
@@ -166,7 +193,7 @@ export default function OnboardingPage() {
               <div className="form-label">life motto</div>
               <input className="ev-input" value={motto} onChange={e => setMotto(e.target.value)} placeholder="the words you live by..." />
             </div>
-            <button className="btn btn-full" onClick={finish}>enter everlong ✦</button>
+            <button className="btn btn-full" onClick={finish}>enter forget-me-not ✦</button>
           </div>
         )}
       </div>

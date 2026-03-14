@@ -7,7 +7,7 @@ export default function Home() {
       <Stars />
       <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}><ThemeToggle /></div>
       <section className="hero">
-        <h1 className="hero-title ar ar1">everlong<span className="cursor"></span></h1>
+        <h1 className="hero-title ar ar1">forget-me-not<span className="cursor"></span></h1>
         <p className="hero-sub ar ar2">letters that last.</p>
         <p className="hero-desc ar ar3">
           write a letter. watch it travel across the world.<br />

@@ -42,7 +42,7 @@ export default function DashboardPage() {
 
       {/* nav */}
       <nav className="topnav">
-        <span className="nav-brand">everlong<span>_ letters that last</span></span>
+        <span className="nav-brand">forget-me-not<span>_ letters that last</span></span>
         <div className="nav-search"><input placeholder="search..." /></div>
         <div className="nav-right">
           {['inbox', 'explore', 'bottle', 'memory', 'blog', 'profile'].map((item, i) => (
@@ -64,7 +64,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <p style={{ fontSize: 11, color: 'var(--tx3)', fontStyle: 'italic', marginBottom: 12, lineHeight: 1.6 }}>{U.bio}</p>
+          <p style={{ fontSize: 11, color: 'var(--tx3)', marginBottom: 12, lineHeight: 1.6 }}>{U.bio}</p>
 
           <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 16 }}>
             {U.interests.map(i => <span key={i} className="tag">{i}</span>)}
@@ -95,11 +95,11 @@ export default function DashboardPage() {
           {/* reading & motto */}
           <div style={{ marginBottom: 12 }}>
             <div style={{ fontSize: 9, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>reading</div>
-            <div style={{ fontSize: 11, color: 'var(--tx3)', fontStyle: 'italic' }}>{U.book}</div>
+            <div style={{ fontSize: 11, color: 'var(--tx3)',  }}>{U.book}</div>
           </div>
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 9, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>motto</div>
-            <div style={{ fontSize: 11, color: 'var(--tx3)', fontStyle: 'italic' }}>{U.motto}</div>
+            <div style={{ fontSize: 11, color: 'var(--tx3)',  }}>{U.motto}</div>
           </div>
 
           <hr className="divider" />
@@ -107,7 +107,7 @@ export default function DashboardPage() {
           {/* daily question */}
           <div className="card">
             <div style={{ fontSize: 9, color: 'var(--tx4)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>daily question</div>
-            <p style={{ fontSize: 12, color: 'var(--txt)', fontStyle: 'italic', marginBottom: 8, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 12, color: 'var(--txt)', marginBottom: 8, lineHeight: 1.5 }}>
               "if you could send one letter to your 16-year-old self, what would you say?"
             </p>
             <button className="btn btn-sm">answer</button>
@@ -160,7 +160,7 @@ export default function DashboardPage() {
                 <span style={{ fontSize: 10, color: 'var(--tx4)' }}>{letter.time}</span>
               </div>
 
-              <p style={{ fontSize: 12, color: 'var(--tx2)', lineHeight: 1.6, fontStyle: 'italic', marginBottom: 6, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+              <p style={{ fontSize: 12, color: 'var(--tx2)', lineHeight: 1.6, marginBottom: 6, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                 {letter.preview}
               </p>
 
